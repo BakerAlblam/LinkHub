@@ -12,23 +12,23 @@ export function Navbar() {
   const name = user?.user?.fullName;
   const email = user?.user?.primaryEmailAddress?.emailAddress;
 
-  useEffect(() => {
-    const sendData = async () => {
-      if (authId) {
-        try {
-          await axios.post("/api/users", {
-            name,
-            email,
-            authId,
-          });
-        } catch (error) {
-          console.error("Error sending data:", error);
-        }
-      }
-    };
+  //   useEffect(() => {
+  //     const sendData = async () => {
+  //       if (authId) {
+  //         try {
+  //           await axios.post("/api/users", {
+  //             name,
+  //             email,
+  //             authId,
+  //           });
+  //         } catch (error) {
+  //           console.error("Error sending data:", error);
+  //         }
+  //       }
+  //     };
 
-    sendData();
-  }, [authId, email]);
+  //     sendData();
+  //   }, [authId, email]);
 
   return (
     <header className="flex items-center justify-between border-b px-4 py-2 md:px-8 lg:px-10 xl:px-12">

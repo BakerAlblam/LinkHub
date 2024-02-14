@@ -23,7 +23,7 @@ const Page = () => {
     redir();
   }, [authId]);
 
-  return <div></div>;
+  return <div>Loading...</div>;
 };
 
 export default Page;

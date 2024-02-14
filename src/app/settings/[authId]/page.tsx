@@ -1,12 +1,17 @@
-import { sql } from "drizzle-orm";
+import UsernameForm from "~/components/UsernameForm";
 import { db } from "~/server/db";
-import { users } from "~/server/db/schema";
 
 export default async function Page(context: { params: { authId: any } }) {
   const { authId } = context.params;
-  const usersData = await db.execute(
-    sql`SELECT * FROM ${users} WHERE ${users.authId} = ${authId}`,
-  );
+  const res = await db.query.users.findFirst(authId);
 
-  return <main>{authId}</main>;
+  console.log(res);
+  const user = res;
+  if (user?.username === null)
+    return (
+      <div>
+        {" "}
+        <UsernameForm />{" "}
+      </div>
+    );
 }
