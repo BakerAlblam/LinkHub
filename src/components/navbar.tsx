@@ -3,15 +3,8 @@ import Link from "next/link";
 import { JSX, SVGProps, useEffect } from "react";
 import { Input } from "./ui/input";
 import { SignIn, SignInButton, UserButton, useUser } from "@clerk/nextjs";
-import axios from "axios";
 
 export function Navbar() {
-  const user = useUser();
-  const isSignedIn = user.isSignedIn;
-  const authId = user?.user?.id;
-  const name = user?.user?.fullName;
-  const email = user?.user?.primaryEmailAddress?.emailAddress;
-
   //   useEffect(() => {
   //     const sendData = async () => {
   //       if (authId) {
@@ -31,20 +24,20 @@ export function Navbar() {
   //   }, [authId, email]);
 
   return (
-    <header className="flex items-center justify-between border-b px-4 py-2 md:px-8 lg:px-10 xl:px-12">
+    <header className="flex items-center justify-between border-b bg-slate-950 px-4 py-2 md:px-8 lg:px-10 xl:px-12">
       <Link className="flex items-center" href="#">
         <FilmIcon className="h-6 w-6" />
         <span className="ml-2 text-lg font-semibold">LinkHub</span>
       </Link>
 
       <div className="relative lg:hidden">
-        <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+        <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 " />
         <Input className="pl-8 text-sm" placeholder="Search..." type="search" />
       </div>
 
       <nav className="hidden gap-6 lg:flex">
         <div className="relative hidden lg:block">
-          <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+          <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 " />
           <Input
             className="pl-8 text-sm"
             placeholder="Search..."
@@ -52,11 +45,11 @@ export function Navbar() {
           />
         </div>
       </nav>
-      {isSignedIn ? (
+      {/* {isSignedIn ? (
         <UserButton afterSignOutUrl="/" />
       ) : (
         <SignInButton redirectUrl={`http://localhost:3000/settings`} />
-      )}
+      )} */}
     </header>
   );
 }

@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 .bg-primary {
-  background-color: white;
+  background-color: black;
 }
 
 .text-primary {
-  color: black;
+  color: white;
 }
 
 @layer base {

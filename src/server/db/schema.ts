@@ -4,10 +4,9 @@
 import { sql } from "drizzle-orm";
 import {
   bigint,
-  index,
   mysqlTableCreator,
+  text,
   timestamp,
-  varchar,
 } from "drizzle-orm/mysql-core";
 
 /**
@@ -20,10 +19,9 @@ export const createTable = mysqlTableCreator((name) => `trpc_${name}`);
 
 export const users = createTable("users", {
   id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
-  authId: varchar("authId", { length: 256 }),
-  name: varchar("name", { length: 256 }),
-  username: varchar("username", { length: 256 }),
-  email: varchar("email", { length: 50 }),
+  username: text("username"),
+  email: text("email"),
+  password: text("password"),
   createdAt: timestamp("created_at")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
