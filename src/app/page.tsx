@@ -1,5 +1,4 @@
 import { db } from "~/server/db";
-import Form from "./components/form";
 import { SearchIcon } from "lucide-react";
 import { Input } from "~/components/ui/input";
 
@@ -12,7 +11,7 @@ export default async function HomePage() {
             <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
               The complete platform for your links
             </h1>
-            <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+            <p className="mx-auto max-w-[600px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               Share all of your social media profiles and important links with a
               beautiful and customizable page.
             </p>

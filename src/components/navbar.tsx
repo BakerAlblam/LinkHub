@@ -11,6 +11,7 @@ export function Navbar() {
     console.log("All Cookies:", cookies); // Log all cookies for debugging
     const cookie = cookies.find((c) => c.startsWith(`${name}=`));
     console.log("Found Cookie:", cookie); // Log the found cookie for debugging
+    // return cookie ? decodeURIComponent(cookie.split("=")[1]) : null;
   };
 
   const isSignedIn = getCookie("accessToken") !== null;
