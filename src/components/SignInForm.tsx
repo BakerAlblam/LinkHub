@@ -35,8 +35,10 @@ const SignInForm = () => {
         email: data.email,
         password: data.password,
       });
-      if (res.data?.token) {
+
+      if (res.data?.username) {
         getCookie("accessToken");
+        router.push(`/links/${res?.data?.username}`);
       } else {
         toast.error("Invalid credentials", {
           style: {

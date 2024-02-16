@@ -9,6 +9,7 @@ export async function POST(request: NextRequest) {
   const user = await db.query.users.findFirst({
     where: (users, { eq }) => eq(users.email, email),
   });
+
   if (!email || !password) {
     return NextResponse.json(
       { message: "Invalid input data" },
@@ -25,18 +26,34 @@ export async function POST(request: NextRequest) {
           expiresIn: "1h",
         },
       );
+
       return NextResponse.json(
-        { userId: user.id, username: user.username, token },
+        { userId: user.id, username: user.username },
         {
           headers: {
-            "Set-Cookie": `accessToken=${token}; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=3600`,
-          },
+            "Set-Cookie": [
+              `userData=${encodeURIComponent(
+                JSON.stringify(
+                  { userId: user.id, username: user.username } || {},
+                ),
+              )}; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=3600`,
+              `accessToken=${token}; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=3600` ||
+                "",
+            ].filter(Boolean), // Filter out empty strings or undefined values
+          } as any,
         },
       );
     } else {
-      return NextResponse.json({ message: "incorrect!" });
+      return NextResponse.json(
+        { message: "Incorrect email or password" },
+        { status: 401 },
+      );
     }
   } catch (error) {
-    console.log(error);
+    console.error("Error during login:", error);
+    return NextResponse.json(
+      { message: "An error occurred during login" },
+      { status: 500 },
+    );
   }
 }

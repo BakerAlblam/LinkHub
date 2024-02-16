@@ -1,34 +1,29 @@
 "use client";
 import Link from "next/link";
-import { JSX, SVGProps, useEffect } from "react";
+import { JSX, SVGProps } from "react";
 import { Input } from "./ui/input";
-import { SignIn, SignInButton, UserButton, useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 export function Navbar() {
-  //   useEffect(() => {
-  //     const sendData = async () => {
-  //       if (authId) {
-  //         try {
-  //           await axios.post("/api/users", {
-  //             name,
-  //             email,
-  //             authId,
-  //           });
-  //         } catch (error) {
-  //           console.error("Error sending data:", error);
-  //         }
-  //       }
-  //     };
+  const router = useRouter();
+  const getCookie = (name: string) => {
+    const cookies = document.cookie.split("; ");
+    console.log("All Cookies:", cookies); // Log all cookies for debugging
+    const cookie = cookies.find((c) => c.startsWith(`${name}=`));
+    console.log("Found Cookie:", cookie); // Log the found cookie for debugging
+  };
 
-  //     sendData();
-  //   }, [authId, email]);
+  const isSignedIn = getCookie("accessToken") !== null;
+
+  const signout = () => {
+    document.cookie =
+      "accessToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; SameSite=None";
+    router.push("/");
+  };
 
   return (
     <header className="flex items-center justify-between border-b bg-slate-950 px-4 py-2 md:px-8 lg:px-10 xl:px-12">
-      <Link className="flex items-center" href="#">
-        <FilmIcon className="h-6 w-6" />
-        <span className="ml-2 text-lg font-semibold">LinkHub</span>
-      </Link>
+      <Link href="#"></Link>
 
       <div className="relative lg:hidden">
         <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 " />
@@ -45,11 +40,12 @@ export function Navbar() {
           />
         </div>
       </nav>
-      {/* {isSignedIn ? (
-        <UserButton afterSignOutUrl="/" />
+
+      {isSignedIn ? (
+        <button onClick={signout}> Sign Out </button>
       ) : (
-        <SignInButton redirectUrl={`http://localhost:3000/settings`} />
-      )} */}
+        <Link href="/signin"> Sign In </Link>
+      )}
     </header>
   );
 }
